@@ -1,3 +1,4 @@
+// @ts-nocheck
 // nhập vào số nguyên 
 var arrNumber = [];
 document.getElementById('btnThemSo').onclick = function
@@ -10,8 +11,9 @@ document.getElementById('btnThemSo').onclick = function
 }
 
 // câu 1 tổng số dương
-var tongSoDuong = 0;
 document.getElementById('btnSoDuong').onclick = function () {
+  var tongSoDuong = 0;
+
   for (var i = 0; i < arrNumber.length; i++) {
     if (arrNumber[i] > 0) {
       tongSoDuong += arrNumber[i];
@@ -21,10 +23,11 @@ document.getElementById('btnSoDuong').onclick = function () {
 }
 
 // câu 2 đếm số dương
-var demSoDuong = 0;
 document.getElementById('btnDemSoDuong').onclick = function () {
+  var demSoDuong = 0;
+
   for (var i = 0; i < arrNumber.length; i++) {
-    if (arrNumber[i] % 2 == 0) {
+    if (arrNumber[i] > 0) {
       demSoDuong += 1;
     }
   }
@@ -33,14 +36,17 @@ document.getElementById('btnDemSoDuong').onclick = function () {
 }
 // câu 3 tìm số nhỏ nhất
 
-var soNhoNhat = arrNumber[0];
+
+
 document.getElementById('btnSoNhoNhat').onclick = function () {
+  var soNhoNhat = arrNumber[0];
+
   for (var i = 1; i < arrNumber.length; i++) {
     if (arrNumber[i] < soNhoNhat) {
       soNhoNhat = arrNumber[i];
+
     }
   }
-  console.log(soNhoNhat);
 
   document.getElementById('timSoNhoNhat').innerHTML = soNhoNhat;
 }
@@ -50,14 +56,16 @@ let soDuongNhoNhat = Number.MAX_VALUE;
 
 document.getElementById('btnSoDuongNhoNhat').onclick = function () {
   for (var i = 0; i < arrNumber.length; i++) {
-    if (arrNumber[i] < soDuongNhoNhat) {
-      soDuongNhoNhat = arrNumber[i]
-    } else if (soDuongNhoNhat == Number.MAX_VALUE) {
+    if (arrNumber[i] > 0 && arrNumber[i] < soDuongNhoNhat) {
       soDuongNhoNhat = arrNumber[i]
     }
 
 
   }
+  if (soDuongNhoNhat === Number.MAX_VALUE) {
+    soDuongNhoNhat = 'không có số dương'
+  }
+
   document.getElementById('timSoDuongNhoNhat').innerHTML = soDuongNhoNhat
 
 }
@@ -82,20 +90,32 @@ document.getElementById('btnTimSoChanCuoiCung').onclick = function () {
 
 document.getElementById('btnDôiSo').onclick = function () {
   // Kiểm tra xem mảng arrNumber có ít nhất 2 phần tử hay không
-  if (arrNumber.length >= 2) {
-    // Tạo biến tạm và gán giá trị của phần tử ở vị trí thứ 1 vào biến tạm
-    let temp = arrNumber[1];
-    // Gán giá trị của phần tử ở vị trí thứ 2 vào vị trí thứ 1
-    arrNumber[1] = arrNumber[0];
-    // Gán giá trị biến tạm vào vị trí thứ 2
-    arrNumber[0] = temp;
+  // Tạo biến tạm và gán giá trị của phần tử ở vị trí thứ 1 vào biến tạm
+  var messages = ''
+  var vitri1 = document.getElementById('soThuNhat').value * 1
+  var vitri2 = document.getElementById('soThuHai').value * 1
 
-    // Hiển thị mảng đã được đổi chỗ lên trang web
-    let doiChoDiv = document.getElementById('doiCho');
-    doiChoDiv.innerHTML = `Mảng đã được đổi chỗ: ${arrNumber}`;
+  if (arrNumber[vitri1] && arrNumber[vitri2]) {
+    var temp = arrNumber[vitri1]
+    arrNumber[vitri1] = arrNumber[vitri2]
+    arrNumber[vitri2] = temp
+
   } else {
-    alert('Mảng cần ít nhất 2 phần tử để thực hiện đổi chỗ!');
+    if (!arrNumber[vitri1]) {
+      messages += vitri1 + ' '
+    }
+    if (!arrNumber[vitri2]) {
+      messages += vitri2
+    }
   }
+
+  if (messages.length) {
+    document.getElementById('doiCho').innerHTML = "Vi tri " + messages + " khong ton tai trong mang"
+  } else {
+    document.getElementById('doiCho').innerHTML = `Mảng đã được đổi chỗ: ${arrNumber}`;
+  }
+
+
 };
 //  câu 7: săp xếp mảng theo thư tự tăng dần 
 document.getElementById('btnSapXepTangDan').onclick = function () {
@@ -105,8 +125,9 @@ document.getElementById('btnSapXepTangDan').onclick = function () {
   document.getElementById('sapXepTangDan').innerHTML = arrNumber;
 };
 // câu 8: tìm số nguyên tố đầu tiên
-var soNguyenToDauTien = 0;
 document.getElementById('btnTimSoNguyenToDauTien').onclick = function () {
+  var soNguyenToDauTien = 0;
+
   for (var i = 0; i < arrNumber.length; i++) {
     if (isPrimeNumber(arrNumber[i])) {
       soNguyenToDauTien = arrNumber[i];
@@ -131,8 +152,9 @@ function isPrimeNumber(n) {
 }
 
 // câu 9 : đếm số nguyên
-var demSoNguyen = 0;
 document.getElementById('btnDemSoNguyen').onclick = function () {
+  var demSoNguyen = 0;
+
   for (var i = 0; i < arrNumber.length; i++) {
     if (Number.isInteger(arrNumber[i])) {
       demSoNguyen += 1;
